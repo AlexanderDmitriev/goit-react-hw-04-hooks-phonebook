@@ -5,7 +5,6 @@ export const Title = styled.h2`
     font-weight: 700;
     font-size: ${props => props.theme.spacing(5)};
     line-height: 1.2;
-    /* text-align: center; */
     color: ${props => props.theme.colors.textColor};
     padding-top: ${props => props.theme.spacing(2)};
 `;
@@ -15,7 +14,6 @@ export const LabelText = styled.label`
     font-weight: 500;
     font-size: ${props => props.theme.spacing(4)};
     line-height: 1.2;
-    /* text-align: center; */
     color: ${props => props.theme.colors.textColor};
     display: flex;
     align-items: center;
