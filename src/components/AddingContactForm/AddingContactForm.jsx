@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
@@ -29,71 +29,61 @@ const ToFormikInput = styled(Field)`
   }
 `;
 
-export const ContactForm = () => {
-
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+export const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = (values, { resetForm }) => {
-    setName(values.name);
-    setNumber(values.number);
-    console.log(values);
-    console.log(name);
-    console.log(number);
+    onSubmit(values);
     resetForm();
   };
 
-    return (
-      <div>
-        <Formik
-          initialValues={{ name: '', number: '' }}
-          validationSchema={schema}
-          onSubmit={handleSubmit}
-        >
-          {({ handleSubmit, isSubmitting }) => (
-            <AddingForm>
-              <Form onSubmit={handleSubmit}>
-                <LabelText htmlFor="name">
-                  Name
-                  <ToFormikInput
-                    type="text"
-                    name="name"
-                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                  />
-                  <ErrorMessage
-                    name="name"
-                    render={msg => (
-                      <StyledErrorMessage>
-                        {'Incorrect name'}
-                      </StyledErrorMessage>
-                    )}
-                  />
-                </LabelText>
-                <LabelText htmlFor="number">
-                  Number
-                  <ToFormikInput
-                    type="tel"
-                    name="number"
-                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                    required
-                  />
-                  <ErrorMessage
-                    name="number"
-                    render={msg => (
-                      <StyledErrorMessage>
-                        {'Incorrect number'}
-                      </StyledErrorMessage>
-                    )}
-                  />
-                </LabelText>
-                <SubmitButton type="submit" disabled={isSubmitting}>
-                  Add contact
-                </SubmitButton>
-              </Form>
-            </AddingForm>
-          )}
-        </Formik>
-      </div>
-    );
-  
-}
+  return (
+    <div>
+      <Formik
+        initialValues={{ name: '', number: '' }}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+      >
+        {({ handleSubmit, isSubmitting }) => (
+          <AddingForm>
+            <Form onSubmit={handleSubmit} readOnly="true">
+              <LabelText htmlFor="name">
+                Name
+                <ToFormikInput
+                  type="text"
+                  name="name"
+                  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                />
+                <ErrorMessage
+                  name="name"
+                  render={
+                    <StyledErrorMessage>{'Incorrect name'}</StyledErrorMessage>
+                  }
+                />
+              </LabelText>
+              <LabelText htmlFor="number">
+                Number
+                <ToFormikInput
+                  type="tel"
+                  name="number"
+                  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                  required
+                />
+                <ErrorMessage
+                  name="number"
+                  render={msg => (
+                    <StyledErrorMessage>
+                      {'Incorrect number'}
+                    </StyledErrorMessage>
+                  )}
+                />
+              </LabelText>
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                Add contact
+              </SubmitButton>
+            </Form>
+          </AddingForm>
+        )}
+      </Formik>
+    </div>
+  );
+};
